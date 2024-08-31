@@ -1,6 +1,6 @@
-[1..15]!(_ * _).
-[1..15]#(|total,cur| total+cur).
-[1..15]?(_ % 2 == 0).
+[1..15]!(_*_). ;; map via !
+[1..15]#(|total,cur| total+cur). ;; reduce via #
+[1..15]?(_ % 2 == 0). ;; filter with ?
 
 ;; sum 1 to 100 via reduce
 s <- [1..100]#+
@@ -8,3 +8,14 @@ s <- [1..100]#+
 s.
 
 [[1..1024]#(+ _ 1024)*12/13].
+
+;; function definition and call
+square (_) <- _*_
+;; ways of calling the above
+s <- { ;; block scoping
+ a <- [1..15]#square
+ b <- [1..15]#square(_)
+ c <- [1..15]#(|val| square(val))
+ [a,b,c]#+
+}
+s.
